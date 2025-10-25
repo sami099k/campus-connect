@@ -19,7 +19,9 @@ server/.env
 
 # Uploads and local files
 server/uploads/
-!.gitkeep
+!server/uploads/.gitkeep
+!server/uploads/avatars/.gitkeep
+!server/uploads/posts/.gitkeep
 
 # OS files
 .DS_Store
