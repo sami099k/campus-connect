@@ -1,0 +1,4 @@
+/* App-level overrides and small utilities */
+.page h2 { margin-bottom: 12px; }
+.actions { display: flex; gap: 8px; align-items: center; }
+.muted { color: var(--muted); }
