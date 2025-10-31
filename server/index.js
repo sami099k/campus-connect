@@ -15,6 +15,7 @@ app.use('/api/friends', require('./Routes/friends'));
 app.use('/api/posts', require('./Routes/posts'));
 app.use('/api/user', require('./Routes/user'));
 app.use('/api/groups', require('./Routes/groups'));
+app.use('/api/messages', require('./Routes/messages'));
 
 // Static files for uploaded media
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

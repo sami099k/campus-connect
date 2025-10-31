@@ -1,3 +1,26 @@
+// Get public profile and friends by userId
+const { FriendRequest } = require('../models')
+exports.getPublicProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).select('-passwordHash');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    // Find friends (accepted requests)
+    const friendships = await FriendRequest.find({
+      $or: [{ sender: userId }, { receiver: userId }],
+      status: 'accepted',
+    })
+      .populate('sender', 'name collegeEmail branch year className section avatarUrl')
+      .populate('receiver', 'name collegeEmail branch year className section avatarUrl');
+    const friends = friendships.map((f) => (
+      f.sender._id.toString() === userId ? f.receiver : f.sender
+    ));
+    return res.json({ success: true, user, friends });
+  } catch (e) {
+    console.error('getPublicProfile error:', e);
+    return res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+};
 const path = require('path')
 const fs = require('fs')
 const multer = require('multer')

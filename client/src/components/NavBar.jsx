@@ -71,6 +71,7 @@ export default function NavBar() {
             {token && (
               <nav style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                 <Link to="/feed" style={linkStyle(loc.pathname === '/feed')}>Home</Link>
+                <Link to="/groups" style={linkStyle(loc.pathname === '/groups')}>Groups</Link>
                 <Link to="/compose" style={linkStyle(loc.pathname === '/compose')}>Compose</Link>
                 <Link 
                   to="/profile?tab=search" 

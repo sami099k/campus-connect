@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { api, endpoints } from '../api/client.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import Loader from '../components/Loader.jsx'
@@ -401,11 +401,29 @@ export default function Profile() {
             {friendsLoading && friends.length === 0 ? <Loader /> : null}
             {friends.length === 0 && !friendsLoading && <div className="muted">No friends yet.</div>}
             <ul className="list">
-              {friends.map((f) => (
-                <li key={f._id} style={{ padding: 12, background: 'var(--surface)', borderRadius: 8, marginBottom: 8 }}>
-                  <div style={{ fontWeight: 600 }}>{f.name}</div>
-                  <div className="muted" style={{ fontSize: 14 }}>{f.collegeEmail}</div>
-                  <div className="muted" style={{ fontSize: 13 }}>{[f.branch, f.className, `Year ${f.year}`, `Section ${f.section}`].filter(Boolean).join(' · ')}</div>
+              {Array.isArray(friends) && friends.filter(f => f && typeof f === 'object').length === 0 && (
+                <li className="muted">No friends to show.</li>
+              )}
+              {Array.isArray(friends) && friends.filter(f => f && typeof f === 'object').map((f) => (
+                <li key={f._id || Math.random()} style={{ padding: 12, background: 'var(--surface)', borderRadius: 8, marginBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <Link to={`/users/${f._id}`} style={{ fontWeight: 600, color: 'var(--text)', textDecoration: 'none', fontSize: 16 }}>{f.name || 'Unknown'}</Link>
+                    <div className="muted" style={{ fontSize: 14 }}>{f.collegeEmail || ''}</div>
+                    <div className="muted" style={{ fontSize: 13 }}>{[f.branch, f.className, f.year ? `Year ${f.year}` : '', f.section ? `Section ${f.section}` : ''].filter(Boolean).join(' · ')}</div>
+                  </div>
+                  <Link to={`/dm/${f._id}`} className="btn" style={{
+                    fontSize: 14,
+                    padding: '7px 16px',
+                    borderRadius: 8,
+                    background: '#2f7bff',
+                    color: '#fff',
+                    fontWeight: 700,
+                    border: 'none',
+                    boxShadow: '0 1px 4px #0001',
+                    textDecoration: 'none',
+                    transition: 'background 0.2s, color 0.2s',
+                    display: 'inline-block',
+                  }}>Message</Link>
                 </li>
               ))}
             </ul>

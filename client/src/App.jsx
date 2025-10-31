@@ -15,6 +15,11 @@ import Requests from './pages/Requests.jsx'
 import SearchFriends from './pages/SearchFriends.jsx'
 import Home from './pages/Home.jsx'
 import Profile from './pages/Profile.jsx'
+import Groups from './pages/Groups.jsx'
+import GroupChat from './pages/GroupChat.jsx'
+import DirectChat from './pages/DirectChat.jsx'
+
+import UserProfile from './pages/UserProfile.jsx'
 
 export default function App() {
   return (
@@ -52,6 +57,30 @@ export default function App() {
               }
             />
             <Route
+              path="/groups/:groupId/chat"
+              element={
+                <ProtectedRoute>
+                  <GroupChat />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dm/:userId"
+              element={
+                <ProtectedRoute>
+                  <DirectChat />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:userId"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/friends"
               element={
                 <ProtectedRoute>
@@ -81,6 +110,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/groups"
+              element={
+                <ProtectedRoute>
+                  <Groups />
                 </ProtectedRoute>
               }
             />

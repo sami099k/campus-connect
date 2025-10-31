@@ -9,4 +9,5 @@ module.exports = {
   Notification: require('./Notification'),
   OTP: require('./OTP'),
   FriendRequest: require('./FriendRequest'),
+  Message: require('./Message'),
 };
